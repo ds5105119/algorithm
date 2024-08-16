@@ -1,0 +1,61 @@
+# 두 암호문에서 공통된 단어 찾기
+import re
+from collections import Counter
+
+# 암호문 1과 2
+cipher_text_1 = """
+ALPNTE GLSE - SE ERtE
+VLSE MTSE-CTSE-WSE-FRTSE
+PNRTRSE ONDRSE WLD NCBE
+NWLDXLRCMSP NEWLD S TS MEXL
+DVLMT 6TUNSE NCBEXL
+(MUNSARSTENMUNARSE)
+KLSE-LRSTE-TR SE-TRSE-MKSE?-MRSE
+(SAEGNSE SE NMRSE)
+NMNRCBRNSE PTE ZPTE WSRCBRMSE
+36MLSE 74SPRKSE 29KENOSOLE 173RTRSE
+35 GLE CLGSE VUNVTRE DKRSE PSESHLE
+651MTCSE HTLSE NCVTCTRS NMRE
+99.84.S ZUNE PLSE NCRSE AOLTSE NSRSE NBSE
+NSREONSE PVTSE WLD NCBE (3XORL)
+BNMSE NRSE INZ NTRLE RCBRNSE NTSRCRSNE
+LSPNSE NGSPSE MKSERBSE NCBEAVXLR
+HM CRE NMRE NCBE 1/2 MUND PLSE
+D-W-M-4 MIL XDRLX
+"""
+
+cipher_text_2 = """
+(MNDMKNEARSE-N-S-M-KNARE) (ACSM?)
+TFRNE NPtNSE NPBSER CBRNSE NPRSE INC
+PRSE NMRSE OPRE HLDNLDNCBE(TFXLE TCXL N CBE)
+AL-PRPPIT XLYPPIY NCBE MGKSE W CD RCBR NSE PRSE
+WLDRCBRNSE NT SGNENTXSE-CRSLE-CLTRSE WLDNCBE
+ALWLD NCBE TSME LRSE RLSE VRGLSNE AS N WLD NCBE
+(NOPFSE NLSRE NCBE)NTE GDDMNSENCURERCBRNE
+(TENE TFRNE NCBRTSENCBE INC)
+(FLRSE PRSE ONDE 71 NCBE)
+(CDNSE PRSE ONSDE 74 NCBE)
+(PRTSE PRSE ONREDE 75 NCBE)
+(TF NRCMSP SOLE MRDE LUSE TO TE WLD N WLD NCBE)
+(194 WLD'S NCBE) (TRFXL)
+"""
+
+# 단어 추출
+words_1 = re.findall(r'\b\w+\b', cipher_text_1)
+words_2 = re.findall(r'\b\w+\b', cipher_text_2)
+
+frequency_analysis_1 = Counter(''.join(words_1))
+frequency_analysis_2 = Counter(''.join(words_2))
+
+frequency_analysis_1 = frequency_analysis_1.most_common()
+frequency_analysis_2 = frequency_analysis_2.most_common()
+
+print(frequency_analysis_1)
+print(frequency_analysis_2)
+
+print(cipher_text_1.translate(cipher_text_1.maketrans('SNRTAO', 'TAOSNR')))
+
+
+# 공통된 단어
+common_words = set(words_1) & set(words_2)
+print(common_words)
